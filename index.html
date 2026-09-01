@@ -2,16 +2,27 @@
 <html>
 <head>
 <meta charset="utf-8">
+<style>
+    body {
+        -webkit-user-select: none;
+        user-select: none;
+    }
+</style>
 </head>
 <body>
-<img src="https://tse1-mm.cn.bing.net/th/id/OIP-C.vTYpEzzsuxbJgNF9Z37gigHaFj?w=222&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3" alt="111">&nbsp&nbsp刘会文
+<img src="https://tse1-mm.cn.bing.net/th/id/OIP-C.vTYpEzzsuxbJgNF9Z37gigHaFj?w=222&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3" alt="111" draggable="false" width="100">
+<h1>刘会文</h1>
 <h1>我的爱好</h1>
 <h3>热衷（有序）</h3>
 <ol>
-    <li>运动一些有激情的运动</li>
-    <li>打游戏</li>
-    <li>旅游去不同城市旅游</li>
+    <li>运动一些有激情的运动 <progress value="80" max="100"></progress> 80%</li>
+    <li>打游戏 <progress value="95" max="100"></progress> 95%</li>
+    <li>旅游去不同城市旅游 <progress value="60" max="100"></progress> 60%</li>
 </ol>
 <a href="gfvt.PDF" download>论文下载</a>
+<div id="secret" hidden>
+    <p>这是隐藏的内容，看不到的</p>
+</div>
+<button onclick="document.getElementById('secret').hidden = !document.getElementById('secret').hidden">显示/隐藏</button>
 </body>
 </html>
