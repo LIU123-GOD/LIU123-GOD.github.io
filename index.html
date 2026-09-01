@@ -23,6 +23,16 @@
 <div id="secret" hidden>
     <p>这是隐藏的内容，看不到的</p>
 </div>
-<button onclick="document.getElementById('secret').hidden = !document.getElementById('secret').hidden">显示/隐藏</button>
+<button onclick="checkPwd()">显示/隐藏</button>
+<script>
+    function checkPwd() {
+        var input = prompt("请输入密码：");
+        if (input === "123456") {
+            document.getElementById("secret").hidden = false;
+        } else if (input !== null) {
+            alert("密码错误！");
+        }
+    }
+</script>
 </body>
 </html>
