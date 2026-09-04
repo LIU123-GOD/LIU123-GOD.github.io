@@ -4,35 +4,101 @@
 <meta charset="utf-8">
 <style>
     body {
-        -webkit-user-select: none;
-        user-select: none;
+        font-family: "Microsoft YaHei", Arial, sans-serif;
+        margin: 0;
+        padding: 40px;
+        background-color: #f5f5f5;
+        min-height: 100vh;
+        box-sizing: border-box;
+    }
+    .container {
+        width: 100%;
+        max-width: 100%;
+        height: calc(100vh - 80px);
+        background-color: white;
+        padding: 50px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow-y: auto;
+    }
+    .content {
+        width: 100%;
+        max-width: 1200px;
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 30px;
+        align-items: start;
+    }
+    .avatar-container {
+        text-align: center;
+    }
+    .avatar {
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #0066cc;
+        margin-bottom: 15px;
+    }
+    .info-section {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .basic-info {
+        background-color: #fff9e6;
+        border: 2px dashed #333;
+        padding: 18px;
+        font-size: 15px;
+        line-height: 1.8;
+    }
+    .education-info {
+        background-color: #ff9933;
+        color: #000;
+        padding: 18px;
+        font-size: 15px;
+        line-height: 1.8;
+        border: 2px solid #cc7700;
+    }
+    .info-item {
+        margin-bottom: 8px;
+    }
+    .info-item:last-child {
+        margin-bottom: 0;
+    }
+    strong {
+        font-weight: bold;
     }
 </style>
 </head>
 <body>
-<img src="https://tse1-mm.cn.bing.net/th/id/OIP-C.vTYpEzzsuxbJgNF9Z37gigHaFj?w=222&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3" alt="111" draggable="false" width="100">
-<h1>刘会文</h1>
-<h1>我的爱好</h1>
-<h3>热衷（有序）</h3>
-<ol>
-    <li>运动一些有激情的运动 <progress value="80" max="100"></progress> 80%</li>
-    <li>打游戏 <progress value="95" max="100"></progress> 95%</li>
-    <li>旅游去不同城市旅游 <progress value="60" max="100"></progress> 60%</li>
-</ol>
-<a href="gfvt.PDF" download>论文下载</a>
-<div id="secret" hidden>
-    <p>这是隐藏的内容，看不到的</p>
+<div class="container">
+    <div class="content">
+        <div class="avatar-container">
+            <img src="https://tse1-mm.cn.bing.net/th/id/OIP-C.vTYpEzzsuxbJgNF9Z37gigHaFj?w=222&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3" alt="王亚平" class="avatar">
+        </div>
+        <div class="info-section">
+            <div class="basic-info">
+                <div class="info-item"><strong>刘会文</strong></div>
+                <div class="info-item">Tel: 17860208912</div>
+                <div class="info-item">Email: liuhuiwen3558@qq.com</div>
+                <div class="info-item">研究方向: 深度学习</div>
+            </div>
+            <div class="education-info">
+                <div class="info-item"><strong>教育经历</strong></div>
+                <div class="info-item">曲阜师范大学 2025年09月 - 2029年06月</div>
+                <div class="info-item">计算机科学与技术（师范类）本科</div>
+                <div class="info-item">计算机学院 山东日照</div>
+                <div class="info-item"><strong>技能与学习方向：</strong></div>
+                <div class="info-item">目前正着手学习web开发、Python、深度学习</div>
+                <div class="info-item">已掌握：C语言、C++等编程语言</div>
+            </div>
+        </div>
+    </div>
 </div>
-<button onclick="checkPwd()">显示/隐藏</button>
-<script>
-    function checkPwd() {
-        var input = prompt("请输入密码：");
-        if (input === "123456") {
-            document.getElementById("secret").hidden = false;
-        } else if (input !== null) {
-            alert("密码错误！");
-        }
-    }
-</script>
 </body>
 </html>
