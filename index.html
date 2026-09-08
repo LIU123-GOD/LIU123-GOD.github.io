@@ -1,90 +1,279 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-    body {
-        font-family: "Microsoft YaHei", Arial, sans-serif;
+    * {
         margin: 0;
-        padding: 40px;
-        background-color: #f5f5f5;
-        min-height: 100vh;
+        padding: 0;
         box-sizing: border-box;
     }
-    .container {
-        width: 100%;
-        max-width: 100%;
-        height: calc(100vh - 80px);
-        background-color: white;
-        padding: 50px;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        overflow-y: auto;
+
+    body {
+        font-family: "Microsoft YaHei", "Segoe UI", Arial, sans-serif;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        background-attachment: fixed;
+        position: relative;
+        overflow-x: hidden;
     }
-    .content {
+
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 100%;
-        max-width: 1200px;
+        height: 100%;
+        background-image:
+            radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+            linear-gradient(90deg, transparent 49.5%, rgba(255,255,255,0.02) 49.5%, rgba(255,255,255,0.02) 50.5%, transparent 50.5%),
+            linear-gradient(transparent 49.5%, rgba(255,255,255,0.02) 49.5%, rgba(255,255,255,0.02) 50.5%, transparent 50.5%);
+        background-size: 60px 60px;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .container {
+        max-width: 1300px;
+        margin: 30px auto;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.97);
+        border-radius: 24px;
+        box-shadow:
+            0 25px 60px rgba(0, 0, 0, 0.3),
+            0 10px 30px rgba(102, 126, 234, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 1);
+        backdrop-filter: blur(10px);
+        position: relative;
+        z-index: 2;
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .content {
         display: grid;
-        grid-template-columns: 300px 1fr;
-        gap: 30px;
+        grid-template-columns: 320px 1fr;
+        gap: 45px;
         align-items: start;
     }
+
     .avatar-container {
         text-align: center;
+        position: sticky;
+        top: 30px;
     }
+
+    .avatar-wrapper {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 25px;
+    }
+
     .avatar {
-        width: 220px;
-        height: 220px;
+        width: 240px;
+        height: 240px;
         border-radius: 50%;
         object-fit: cover;
-        border: 4px solid #0066cc;
-        margin-bottom: 15px;
+        border: 5px solid white;
+        box-shadow:
+            0 8px 32px rgba(102, 126, 234, 0.4),
+            0 4px 16px rgba(0, 0, 0, 0.1);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
+
+    .avatar:hover {
+        transform: scale(1.08) rotate(3deg);
+        box-shadow:
+            0 12px 48px rgba(102, 126, 234, 0.6),
+            0 6px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .avatar-ring {
+        position: absolute;
+        top: -8px;
+        left: -8px;
+        right: -8px;
+        bottom: -8px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        background: linear-gradient(135deg, #667eea, #764ba2, #f093fb) border-box;
+        -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        animation: rotateRing 8s linear infinite;
+    }
+
+    @keyframes rotateRing {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
     .info-section {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 22px;
     }
+
+    .info-card {
+        padding: 24px;
+        border-radius: 16px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .info-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--card-color), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .info-card:hover {
+        transform: translateX(8px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .info-card:hover::before {
+        opacity: 1;
+    }
+
     .basic-info {
-        background-color: #fff9e6;
-        border: 2px dashed #333;
-        padding: 18px;
-        font-size: 15px;
-        line-height: 1.8;
+        --card-color: #ffd700;
+        background: linear-gradient(135deg, #fff9e6 0%, #fffacd 100%);
+        border-left: 5px solid #ffc107;
+        box-shadow: 0 4px 16px rgba(255, 193, 7, 0.2);
     }
+
     .education-info {
-        background-color: #ff9933;
+        --card-color: #ff9933;
+        background: linear-gradient(135deg, #fff4e6 0%, #ffe4b5 100%);
         color: #000;
-        padding: 18px;
-        font-size: 15px;
-        line-height: 1.8;
-        border: 2px solid #cc7700;
+        border-left: 5px solid #ff9800;
+        box-shadow: 0 4px 16px rgba(255, 152, 0, 0.2);
+    }
+
+    .hobby-info {
+        --card-color: #667eea;
+        background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+        border-left: 5px solid #5c6bc0;
+        box-shadow: 0 4px 16px rgba(92, 107, 192, 0.2);
     }
     .info-item {
-        margin-bottom: 8px;
+        margin-bottom: 10px;
+        padding-left: 12px;
+        position: relative;
+        font-size: 15px;
+        line-height: 1.9;
+        transition: transform 0.2s ease;
     }
+
+    .info-item:hover {
+        transform: translateX(4px);
+    }
+
+    .info-item::before {
+        content: "▸";
+        position: absolute;
+        left: -4px;
+        color: #667eea;
+        font-weight: bold;
+    }
+
     .info-item:last-child {
         margin-bottom: 0;
     }
-    .hobby-info {
-        background-color: #f0f8ff;
-        border: 1px solid #99ccee;
-        padding: 15px;
-        font-size: 14px;
-        line-height: 1.6;
-    }
-    .hobby-item {
-        margin-bottom: 10px;
-    }
-    .hobby-item:last-child {
-        margin-bottom: 0;
-    }
+
     strong {
         font-weight: bold;
+        color: #333;
+        font-size: 16px;
+    }
+
+    progress {
+        width: 100%;
+        height: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+        background: linear-gradient(90deg, #e0e0e0, #f5f5f5);
+        appearance: none;
+        -webkit-appearance: none;
+    }
+
+    progress::-webkit-progress-bar {
+        background: linear-gradient(90deg, #e0e0e0, #f5f5f5);
+        border-radius: 10px;
+    }
+
+    progress::-webkit-progress-value {
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+        transition: width 1s ease-out;
+    }
+
+    .hobby-item {
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+    .hobby-label {
+        flex-shrink: 0;
+        min-width: 150px;
+        font-weight: 500;
+        color: #444;
+    }
+
+    .hobby-progress {
+        flex-grow: 1;
+        max-width: 200px;
+    }
+
+    .hobby-value {
+        flex-shrink: 0;
+        font-weight: bold;
+        color: #667eea;
+        min-width: 40px;
+        text-align: right;
+    }
+
+    .hobby-item:last-child {
+        margin-bottom: 0;
     }
 
     .download-section {
@@ -185,30 +374,49 @@
 <div class="container">
     <div class="content">
         <div class="avatar-container">
-            <img src="https://tse1-mm.cn.bing.net/th/id/OIP-C.vTYpEzzsuxbJgNF9Z37gigHaFj?w=222&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3" alt="王亚平" class="avatar">
+            <div class="avatar-wrapper">
+                <div class="avatar-ring"></div>
+                <img src="https://tse1-mm.cn.bing.net/th/id/OIP-C.vTYpEzzsuxbJgNF9Z37gigHaFj?w=222&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3" alt="刘会文" class="avatar">
+            </div>
         </div>
         <div class="info-section">
-            <div class="basic-info">
-                <div class="info-item"><strong>刘会文</strong></div>
-                <div class="info-item">Tel: 17860208912</div>
-                <div class="info-item">Email: liuhuiwen3558@qq.com</div>
-                <div class="info-item">研究方向: 深度学习</div>
+            <div class="basic-info info-card">
+                <div class="info-item"><strong>👤 刘会文</strong></div>
+                <div class="info-item">📞 Tel: 17860208912</div>
+                <div class="info-item">✉️ Email: liuhuiwen3558@qq.com</div>
+                <div class="info-item">🔬 研究方向: 深度学习</div>
             </div>
-            <div class="education-info">
-                <div class="info-item"><strong>教育经历</strong></div>
-                <div class="info-item">曲阜师范大学 2025年09月 - 2029年06月</div>
-                <div class="info-item">计算机科学与技术（师范类）本科</div>
-                <div class="info-item">计算机学院 山东日照</div>
-                <div class="info-item"><strong>技能与学习方向：</strong></div>
-                <div class="info-item">目前正着手学习web开发、Python、深度学习</div>
-                <div class="info-item">已掌握：C语言、C++等编程语言</div>
+            <div class="education-info info-card">
+                <div class="info-item"><strong>🎓 教育经历</strong></div>
+                <div class="info-item">🏫 曲阜师范大学 2025年09月 - 2029年06月</div>
+                <div class="info-item">💻 计算机科学与技术（师范类）本科</div>
+                <div class="info-item">📍 计算机学院 山东日照</div>
+                <div class="info-item"><strong>🛠️ 技能与学习方向：</strong></div>
+                <div class="info-item">📚 目前正着手学习web开发、Python、深度学习</div>
+                <div class="info-item">✅ 已掌握：C语言、C++等编程语言</div>
             </div>
-            <div class="hobby-info">
+            <div class="hobby-info info-card">
                 <div class="info-item"><strong>兴趣爱好</strong></div>
-                <div class="hobby-item">运动（有激情的运动） <progress value="80" max="100"></progress> 80%</div>
-                <div class="hobby-item">打游戏 <progress value="95" max="100"></progress> 95%</div>
-                <div class="hobby-item">旅游（不同城市旅游） <progress value="60" max="100"></progress> 60%</div>
-                <div class="hobby-item">编程开发 <progress value="85" max="100"></progress> 85%</div>
+                <div class="hobby-item">
+                    <span class="hobby-label">🏃 运动</span>
+                    <div class="hobby-progress"><progress value="80" max="100"></progress></div>
+                    <span class="hobby-value">80%</span>
+                </div>
+                <div class="hobby-item">
+                    <span class="hobby-label">🎮 打游戏</span>
+                    <div class="hobby-progress"><progress value="95" max="100"></progress></div>
+                    <span class="hobby-value">95%</span>
+                </div>
+                <div class="hobby-item">
+                    <span class="hobby-label">✈️ 旅游</span>
+                    <div class="hobby-progress"><progress value="60" max="100"></progress></div>
+                    <span class="hobby-value">60%</span>
+                </div>
+                <div class="hobby-item">
+                    <span class="hobby-label">💻 编程开发</span>
+                    <div class="hobby-progress"><progress value="85" max="100"></progress></div>
+                    <span class="hobby-value">85%</span>
+                </div>
             </div>
 
             <div class="download-section">
